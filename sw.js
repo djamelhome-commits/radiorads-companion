@@ -1,5 +1,5 @@
 /* Service worker généré à partir de ce modèle ; aucune requête extérieure interceptée. */
-const VERSION='3a458a4027b9d888';
+const VERSION='663cb50ea37cf297';
 const FILES=["app.js","assets/fontawesome/css/fontawesome.min.css","assets/fontawesome/css/solid.min.css","assets/fontawesome/webfonts/fa-solid-900.ttf","assets/fontawesome/webfonts/fa-solid-900.woff2","assets/icon-192.png","assets/icon-512.png","assets/icon-maskable-512.png","assets/icon.svg","assets/logo-cim.png","assets/tailwind.css","assets/vi-rads-mini.svg","assets/vi-rads-thumb.png","core.js","data.js","index.html","manifest.webmanifest","styles.css","theme.js","build-info.js"];
 const BASE=self.registration.scope;
 const PREFIX='radiorads-'+encodeURIComponent(BASE)+'-';

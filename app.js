@@ -9,6 +9,19 @@
   const report = $('#report-text');
   const esc = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const icon = name => `<i class="fa-solid fa-${name}" aria-hidden="true"></i>`;
+  // Pictogrammes anatomiques originaux, communs aux cartes et aux fiches.
+  const organPaths = {
+    bi:'<path d="M12 4c-5 2-8 7-8 13 0 5 3 9 8 11 2-4 4-7 8-9 3-2 5-4 5-7 0-4-4-7-8-7-2 0-4 1-5 3z"/><path d="M10 17c3 0 5 2 6 5" fill="none" stroke="currentColor" stroke-width="1.6"/>',
+    pi:'<path d="M8 11c-2 1-3 3-3 6 0 5 5 10 11 10s11-5 11-10c0-3-1-5-3-6-2 2-5 3-8 3s-6-1-8-3z"/><path d="M10 7c2-2 10-2 12 0v4c-3 2-9 2-12 0z"/><path d="M16 14v13" fill="none" stroke="var(--surface2)" stroke-width="2"/>',
+    li:'<path d="M3 11c3-5 10-7 18-5 4 1 7 4 8 8-2 2-5 3-8 3l-4 8c-3 2-7 1-8-2l-2-5c-3 0-5-2-4-7z"/><path d="M18 9c-1 4 0 7 3 8" fill="none" stroke="var(--surface2)" stroke-width="1.5"/>',
+    lung:'<path d="M15 5v10c-3-5-5-7-7-6-3 2-5 9-5 15 0 3 2 4 5 3 4-1 7-5 7-10z"/><path d="M17 5v10c3-5 5-7 7-6 3 2 5 9 5 15 0 3-2 4-5 3-4-1-7-5-7-10z"/><path d="M16 4v11" fill="none" stroke="currentColor" stroke-width="2"/>',
+    ti:'<path d="M7 10c-3 1-4 4-4 8s3 8 6 9c3 1 5-3 7-6 2 3 4 7 7 6 3-1 6-5 6-9s-1-7-4-8c-2-1-5 1-7 3h-4c-2-2-5-4-7-3z"/><path d="M14 13h4v8h-4z"/>',
+    cad:'<path d="M16 28 5 18C-2 11 7 3 13 9l3 3 3-3c6-6 15 2 8 9z"/><path d="M16 12c-3 3-4 6-4 10m4-6c4 0 7 1 9 3" fill="none" stroke="var(--surface2)" stroke-width="1.7" stroke-linecap="round"/>',
+    o:'<path d="M12 13c-1 3-2 7-1 10 1 3 3 5 5 5s4-2 5-5c1-3 0-7-1-10-2 2-6 2-8 0z"/><path d="M12 14C9 11 7 8 4 9m16 5c3-3 5-6 8-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="4" cy="9" r="3"/><circle cx="28" cy="9" r="3"/>'
+  };
+  const organGlyph = m => m.id==='vi'
+    ? '<img class="organ-image" src="assets/vi-rads-thumb.png" alt="" aria-hidden="true">'
+    : `<svg class="organ-svg" viewBox="0 0 32 32" aria-hidden="true" focusable="false" fill="currentColor">${organPaths[m.id]}</svg>`;
   const moduleURL = (m,v,row) => '#module/'+m.id+'/'+v.id+(row?'/'+row.id:'');
   const state = {favorites:new Set(),query:'',psa:'',volume:'',installPrompt:null,registration:null,toastTimer:null,lastRoute:'',reloadApproved:false,selectionFocus:null};
   try {
@@ -35,7 +48,7 @@
     $('#navigation').innerHTML = `<a class="nav-item ${r.page==='home'?'active':''}" href="#home" ${r.page==='home'?'aria-current="page"':''}>${icon('table-cells-large')} Vue d’ensemble</a>
       <a class="nav-item ${r.page==='favorites'?'active':''}" href="#favorites" ${r.page==='favorites'?'aria-current="page"':''}>${icon('star')} Mes favoris <small>${state.favorites.size}</small></a>
       <div class="nav-divider"></div><div class="nav-label">CLASSIFICATIONS</div>`+
-      modules.map(m=>`<a class="nav-item ${r.page==='module'&&r.m===m?'active':''}" href="${moduleURL(m,m.variants[0])}" ${r.page==='module'&&r.m===m?'aria-current="page"':''}>${icon(m.icon)}<span>${m.name}</span><small>${m.organ==='Ovaires & annexes'?'Annexes':m.organ}</small></a>`).join('');
+      modules.map(m=>`<a class="nav-item ${r.page==='module'&&r.m===m?'active':''}" href="${moduleURL(m,m.variants[0])}" ${r.page==='module'&&r.m===m?'aria-current="page"':''}>${organGlyph(m)}<span>${m.name}</span><small>${m.organ==='Ovaires & annexes'?'Annexes':m.organ}</small></a>`).join('');
   }
   function favoriteButton(m, detail=false) {
     const selected=state.favorites.has(m.id);
@@ -43,7 +56,7 @@
   }
   function card(m) {
     return `<article class="module-card" style="--accent:var(--${m.accent})">
-      <a href="${moduleURL(m,m.variants[0])}"><div class="module-top"><div class="organ-icon">${icon(m.icon)}</div><div><h3>${m.name}</h3><span class="organ">${m.organ}</span></div></div>${m.id==='vi'?'<img class="module-thumb" src="assets/vi-rads-thumb.png" alt="Miniature simplifiée des séquences IRM VI-RADS">':''}<p>${m.subtitle}</p><div class="module-foot"><span class="version-pill">${m.variants.map(v=>v.version).filter((v,i,a)=>a.indexOf(v)===i).join(' / ')}</span><span class="card-arrow">Ouvrir le guide ${icon('arrow-right')}</span></div></a>${favoriteButton(m)}</article>`;
+      <a href="${moduleURL(m,m.variants[0])}"><div class="module-top"><div class="organ-icon">${organGlyph(m)}</div><div><h3>${m.name}</h3><span class="organ">${m.organ}</span></div></div><p>${m.subtitle}</p><div class="module-foot"><span class="version-pill">${m.variants.map(v=>v.version).filter((v,i,a)=>a.indexOf(v)===i).join(' / ')}</span><span class="card-arrow">Ouvrir le guide ${icon('arrow-right')}</span></div></a>${favoriteButton(m)}</article>`;
   }
   function renderHome(favorites=false) {
     const list=favorites?modules.filter(m=>state.favorites.has(m.id)):modules;
@@ -65,7 +78,7 @@
   }
   function renderModule(m,v,selectedRow) {
     main.innerHTML=`<div class="breadcrumb"><a href="#home">Classifications</a>${icon('chevron-right')}<span>${m.organ}</span></div>
-    <div class="detail-heading"><div class="detail-title" style="--accent:var(--${m.accent})"><span class="organ-icon">${icon(m.icon)}</span><div><h1>${m.name}</h1><p>${m.full}<br>${m.agency}</p></div></div><div class="detail-actions">${favoriteButton(m,true)}</div></div>
+    <div class="detail-heading"><div class="detail-title" style="--accent:var(--${m.accent})"><span class="organ-icon">${organGlyph(m)}</span><div><h1>${m.name}</h1><p>${m.full}<br>${m.agency}</p></div></div><div class="detail-actions">${favoriteButton(m,true)}</div></div>
     <nav class="tabs" aria-label="Parcours ${m.name}">${m.variants.map(item=>`<a class="tab" href="${moduleURL(m,item)}" ${item===v?'aria-current="page"':''}>${item.label} <span class="small">· ${item.version}</span></a>`).join('')}</nav>
     <div class="context-box"><span class="eyebrow">POPULATION & CHAMP D’APPLICATION</span>${esc(v.population)}<div class="context-meta"><span>${icon('bookmark')} ${v.version}</span><span>${icon('list-check')} Catégorie choisie par le médecin</span><span>Synthèse de référence · critères principaux</span></div>${m.id==='vi'?'<figure class="vi-mini-figure"><img src="assets/vi-rads-mini.svg" alt="Repère visuel simplifié VI-RADS : T2W, DWI, ADC et DCE"><figcaption>Repère visuel original : la sémiologie IRM guide l’estimation de l’invasion musculaire.</figcaption></figure>':''}</div>
     <div class="detail-grid"><div><div class="section-heading"><h2>Catégories & conduite à tenir</h2></div><nav class="jump-links" aria-label="Accès aux catégories">${v.rows.map(r=>`<a href="${moduleURL(m,v,r)}">${esc(r.score)}</a>`).join('')}</nav><div class="score-list">${v.rows.map(r=>scoreCard(m,v,r)).join('')}</div>
