@@ -1,0 +1,12 @@
+{
+  "name": "radiorads-companion",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SPA statique française de référence RADS",
+  "scripts": {
+    "build": "tailwindcss -i tailwind.input.css -o assets/tailwind.css --minify && node build-sw.mjs",
+    "test": "node --test tests/core.test.cjs",
+    "test:browser": "node tests/browser.cjs"
+  },
+  "devDependencies": {"tailwindcss": "3.4.17", "playwright": "1.58.2"}
+}

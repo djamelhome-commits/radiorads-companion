@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#125b52">
+  <meta name="description" content="RadioRADS Companion : guide français des classifications RADS, références, favoris et conclusions à adapter. Disponible hors ligne après installation.">
+  <title>RadioRADS Companion — Le repère au quotidien</title>
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/icon-192.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="assets/tailwind.css">
+  <link rel="stylesheet" href="assets/fontawesome/css/fontawesome.min.css">
+  <link rel="stylesheet" href="assets/fontawesome/css/solid.min.css">
+  <link rel="stylesheet" href="styles.css">
+  <script src="theme.js"></script>
+  <script defer src="data.js"></script>
+  <script defer src="core.js"></script>
+  <script defer src="build-info.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <a href="#main" class="skip-link">Aller au contenu</a>
+  <div class="shell">
+    <aside class="sidebar" id="sidebar" aria-label="Navigation principale">
+      <a class="brand" href="#home" aria-label="RadioRADS Companion, accueil"><span class="brand-mark" aria-hidden="true"><i class="fa-solid fa-layer-group"></i></span><span><strong>Radio<span>RADS</span></strong><small>COMPANION</small></span></a>
+      <div class="sidebar-caption">VOTRE ESPACE DE RÉFÉRENCE</div>
+      <nav id="navigation"></nav>
+      <div class="sidebar-bottom">
+        <div class="reference-tag"><span class="status-dot"></span> Guide de référence clinique</div>
+        <p>Synthèses françaises<br>Sources ACR · ESUR · SCCT</p>
+        <a href="#about" class="subtle-link"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> Sources & à propos</a>
+        <div class="sidebar-version">ÉDITION 1.0 <span>SEPT. 2026</span></div>
+      </div>
+    </aside>
+    <button id="nav-scrim" class="nav-scrim" aria-label="Fermer la navigation" hidden></button>
+    <div class="workspace">
+      <header class="topbar">
+        <button id="menu-toggle" class="icon-button mobile-menu" aria-label="Ouvrir la navigation" aria-controls="sidebar" aria-expanded="false"><i class="fa-solid fa-bars" aria-hidden="true"></i></button>
+        <div class="search-box"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i><label class="sr-only" for="search">Rechercher dans tous les référentiels</label><input id="search" type="search" placeholder="Un score, un organe, une conduite à tenir…" autocomplete="off"><kbd aria-hidden="true">/</kbd></div>
+        <span id="offline-status" class="network-status" role="status"><span class="status-dot"></span>Vérification hors ligne…</span>
+        <button id="install" class="button compact" hidden><i class="fa-solid fa-download" aria-hidden="true"></i> Installer</button>
+        <button id="theme-toggle" class="icon-button" aria-label="Activer le mode sombre" aria-pressed="false"><i class="fa-solid fa-moon" aria-hidden="true"></i></button>
+      </header>
+      <div id="update-banner" class="update-banner" hidden><span>Une nouvelle version est prête.</span><button id="update-now" class="button compact">Actualiser l’application</button><span id="update-help" role="status"></span></div>
+      <main id="main" tabindex="-1"></main>
+      <footer class="footer"><span>RadioRADS Companion <span aria-hidden="true">·</span> Synthèse indépendante</span><span>Aide à la référence, à confronter au contexte clinique. <a href="#about">Méthode & limites</a></span></footer>
+    </div>
+  </div>
+  <section id="report-panel" class="report-panel" aria-labelledby="report-title" hidden>
+    <div class="report-heading"><div><span class="eyebrow">ESPACE DE RÉDACTION</span><h2 id="report-title">Votre conclusion</h2></div><button id="report-close" class="icon-button" aria-label="Réduire le panneau de conclusion"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button></div>
+    <p class="muted small">Proposition à relire et à adapter. Aucun constat non renseigné n’est ajouté.</p>
+    <label for="report-text" class="sr-only">Conclusion modifiable avant copie</label><textarea id="report-text" rows="8" spellcheck="true"></textarea>
+    <div class="report-actions"><button id="copy-report" class="button primary"><i class="fa-solid fa-copy" aria-hidden="true"></i> Copier pour le RIS</button><button id="download-report" class="button">Exporter .txt</button><button id="clear-report" class="button danger">Effacer</button></div>
+    <p id="copy-status" class="small" role="status"></p>
+  </section>
+  <button id="report-reopen" class="report-reopen button primary" hidden><i class="fa-solid fa-file-lines" aria-hidden="true"></i> Reprendre la conclusion</button>
+  <div id="toast" class="toast" role="status" hidden></div>
+  <noscript><p class="no-script">Activez JavaScript pour consulter les fiches interactives. Les sources sont documentées dans le guide livré.</p></noscript>
+</body>
+</html>
