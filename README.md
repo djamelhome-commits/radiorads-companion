@@ -1,6 +1,6 @@
 # RadioRADS Companion
 
-SPA française statique pour les référentiels BI-RADS, PI-RADS, LI-RADS, Lung-RADS, TI-RADS, CAD-RADS et O-RADS. Le contenu est une synthèse originale à confronter aux documents officiels et au contexte clinique ; l’application ne fournit pas de diagnostic automatique.
+SPA française statique pour les référentiels BI-RADS, PI-RADS, LI-RADS, Lung-RADS, TI-RADS, CAD-RADS, O-RADS et VI-RADS. Le contenu est une synthèse originale à confronter aux documents officiels et au contexte clinique ; l’application ne fournit pas de diagnostic automatique.
 
 ## Utiliser et publier
 
@@ -32,4 +32,4 @@ Seuls le thème et les favoris sont conservés dans `localStorage`. Le PSA, le v
 
 ## Référentiel et limites
 
-Les fiches indiquent leur version et leurs liens : BI-RADS v2025, PI-RADS v2.1 (2019), LI-RADS diagnostic v2018 et TRA v2024, Lung-RADS v2022, ACR TI-RADS 2017, CAD-RADS 2.0 (2022), O-RADS US v2022 et MRI 2024. Les seuils, catégories et conduites restent à valider par le responsable médical du service avant emploi clinique.
+Les fiches indiquent leur version et leurs liens : BI-RADS v2025, PI-RADS v2.1 (2019), LI-RADS diagnostic v2018 et TRA v2024, Lung-RADS v2022, ACR TI-RADS 2017, CAD-RADS 2.0 (2022), O-RADS US v2022 et MRI 2024, VI-RADS (consensus initial 2018). Les seuils, catégories et conduites restent à valider par le responsable médical du service avant emploi clinique.
