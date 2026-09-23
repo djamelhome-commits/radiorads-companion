@@ -1,2 +1,2 @@
 /* Généré par build-sw.mjs. */
-globalThis.RADS_BUILD = '579bfd47a9198ad5';
+globalThis.RADS_BUILD = '3a458a4027b9d888';

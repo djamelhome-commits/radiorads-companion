@@ -43,7 +43,7 @@
   }
   function card(m) {
     return `<article class="module-card" style="--accent:var(--${m.accent})">
-      <a href="${moduleURL(m,m.variants[0])}"><div class="module-top"><div class="organ-icon">${icon(m.icon)}</div><div><h3>${m.name}</h3><span class="organ">${m.organ}</span></div></div><p>${m.subtitle}</p><div class="module-foot"><span class="version-pill">${m.variants.map(v=>v.version).filter((v,i,a)=>a.indexOf(v)===i).join(' / ')}</span><span class="card-arrow">Ouvrir le guide ${icon('arrow-right')}</span></div></a>${favoriteButton(m)}</article>`;
+      <a href="${moduleURL(m,m.variants[0])}"><div class="module-top"><div class="organ-icon">${icon(m.icon)}</div><div><h3>${m.name}</h3><span class="organ">${m.organ}</span></div></div>${m.id==='vi'?'<img class="module-thumb" src="assets/vi-rads-thumb.png" alt="Miniature simplifiée des séquences IRM VI-RADS">':''}<p>${m.subtitle}</p><div class="module-foot"><span class="version-pill">${m.variants.map(v=>v.version).filter((v,i,a)=>a.indexOf(v)===i).join(' / ')}</span><span class="card-arrow">Ouvrir le guide ${icon('arrow-right')}</span></div></a>${favoriteButton(m)}</article>`;
   }
   function renderHome(favorites=false) {
     const list=favorites?modules.filter(m=>state.favorites.has(m.id)):modules;
@@ -67,7 +67,7 @@
     main.innerHTML=`<div class="breadcrumb"><a href="#home">Classifications</a>${icon('chevron-right')}<span>${m.organ}</span></div>
     <div class="detail-heading"><div class="detail-title" style="--accent:var(--${m.accent})"><span class="organ-icon">${icon(m.icon)}</span><div><h1>${m.name}</h1><p>${m.full}<br>${m.agency}</p></div></div><div class="detail-actions">${favoriteButton(m,true)}</div></div>
     <nav class="tabs" aria-label="Parcours ${m.name}">${m.variants.map(item=>`<a class="tab" href="${moduleURL(m,item)}" ${item===v?'aria-current="page"':''}>${item.label} <span class="small">· ${item.version}</span></a>`).join('')}</nav>
-    <div class="context-box"><span class="eyebrow">POPULATION & CHAMP D’APPLICATION</span>${esc(v.population)}<div class="context-meta"><span>${icon('bookmark')} ${v.version}</span><span>${icon('list-check')} Catégorie choisie par le médecin</span><span>Synthèse de référence · critères principaux</span></div></div>
+    <div class="context-box"><span class="eyebrow">POPULATION & CHAMP D’APPLICATION</span>${esc(v.population)}<div class="context-meta"><span>${icon('bookmark')} ${v.version}</span><span>${icon('list-check')} Catégorie choisie par le médecin</span><span>Synthèse de référence · critères principaux</span></div>${m.id==='vi'?'<figure class="vi-mini-figure"><img src="assets/vi-rads-mini.svg" alt="Repère visuel simplifié VI-RADS : T2W, DWI, ADC et DCE"><figcaption>Repère visuel original : la sémiologie IRM guide l’estimation de l’invasion musculaire.</figcaption></figure>':''}</div>
     <div class="detail-grid"><div><div class="section-heading"><h2>Catégories & conduite à tenir</h2></div><nav class="jump-links" aria-label="Accès aux catégories">${v.rows.map(r=>`<a href="${moduleURL(m,v,r)}">${esc(r.score)}</a>`).join('')}</nav><div class="score-list">${v.rows.map(r=>scoreCard(m,v,r)).join('')}</div>
     <div class="section-heading mt-8"><h2>Repères de lecture</h2></div>${v.sections.map(s=>`<details class="knowledge" open><summary>${esc(s.title)}</summary><ul>${s.items.map(t=>`<li>${esc(t)}</li>`).join('')}</ul></details>`).join('')}</div>
     <aside class="detail-aside" aria-label="Conseils et références">${m.id==='pi'?psaBox():''}<section class="aside-box"><h2>${icon('lightbulb')} Perles & Pièges</h2><ul>${v.tips.map(t=>`<li>${esc(t)}</li>`).join('')}</ul></section>${sourcesHTML(v)}<section class="aside-box"><h2>${icon('file-lines')} Une conclusion utile</h2><p class="muted small">Sélectionnez « Conclusion » sur une catégorie, puis adaptez le texte avant de le copier dans votre RIS.</p></section></aside></div>`;
@@ -245,3 +245,5 @@
   document.addEventListener('visibilitychange',()=>{if(!document.hidden)verifyOffline();});
   updateThemeButton();render();registerPWA();
 })();
+
+
